@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Navbar from "../components/Navbar";
 
 const Register = () => {
     useEffect(() => {
@@ -6,6 +7,7 @@ const Register = () => {
     }, []);
     return (
         <div>
+            <Navbar />
             <h1>Register</h1>
             <p>This is the register page</p>
         </div>

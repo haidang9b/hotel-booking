@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
 const Home = () => {
     useEffect(() => {
         document.title = "Home";
     }, []);
     return (
         <div>
-            <h1>Home</h1>
-            <p>This is the home page</p>
+            <Navbar />
+            <Hero />
         </div>
     )
 }
-
 
 export default Home;
