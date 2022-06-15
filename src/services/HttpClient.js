@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { GetAccessToken, GetRefreshToken, SetAccessToken, SetRefreshToken } from './TokenService';
 const HttpClient = axios.create({
     baseURL: 'http://localhost:8080/api',
     headers: {
@@ -9,12 +9,12 @@ const HttpClient = axios.create({
 
 const refreshToken = async () => {
     try{
-        const token = localStorage.getItem('refreshToken');
+        const token = GetRefreshToken();
         if (token) {
             const response = await HttpClient.post('/auth/refresh-token', { refreshToken:token });
             if (response.status === 200) {
-                localStorage.setItem('accessToken', response.data.accessToken);
-                localStorage.setItem('refreshToken', response.data.refreshToken);
+                SetAccessToken(response.data.accessToken);
+                SetRefreshToken(response.data.refreshToken);
                 return true;
             }
         }
@@ -29,7 +29,7 @@ const refreshToken = async () => {
 }
 
 HttpClient.interceptors.request.use(config => {
-    const token = localStorage.getItem('accessToken');
+    const token = GetAccessToken();
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -51,7 +51,7 @@ HttpClient.interceptors.response.use(response => {
         originalConfig._retry = true;
         await refreshToken();
         if(originalConfig.headers.Authorization){
-            originalConfig.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+            originalConfig.headers.Authorization = `Bearer ${GetAccessToken()}`;
         }
         return await HttpClient(originalConfig);
 

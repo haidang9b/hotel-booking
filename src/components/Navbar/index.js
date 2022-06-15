@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { MenuItems } from './MenuItems';
+import { MenuItems } from '../../core/MenuItems';
 import { useNavigate } from 'react-router-dom';
 import { authSelector } from '../../redux/selector';
 import { useDispatch } from 'react-redux';

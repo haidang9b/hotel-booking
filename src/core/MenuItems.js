@@ -23,5 +23,9 @@ export const MenuItems = [
     {
         name: "Login",
         path: "/login",
+    },
+    {
+        name: "Room Management",
+        path: "/room-management",
     }
 ]
