@@ -1,194 +1,46 @@
-import * as React from 'react';
-import { useSelector } from 'react-redux';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { MenuItems } from '../../core/MenuItems';
-import { useNavigate } from 'react-router-dom';
-import { authSelector } from '../../redux/selector';
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../redux/authSlice';
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-
+import React, { useState } from "react";
+import logo from '../../assets/logo.svg';
+import { FaAlignRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { MenuItems } from "../../core/MenuItems";
 
 const Navbar = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const nameBrand = "Hotel booking"
-    const auth = useSelector(authSelector);
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-    const handleSettingClick = (state) => {
-        switch (state) {
-            case 'Logout':
-                dispatch(logoutUser());
-                navigate('/login');
-                break;
-            default:
-                break;
-        }
-    }
-
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            onClick={() => navigate('/')}
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {nameBrand}
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {MenuItems.map((item, index) => (
-                <MenuItem key={index} onClick={() => {
-                    handleCloseNavMenu();
-                    navigate(item.path);
-                }}>
-                  <Typography textAlign="center">{item.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            onClick={() => navigate('/')}
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            {nameBrand}
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {MenuItems.map((item, index) => (
-              <Button
-                key={index}
-                onClick={() => {
-                    handleCloseNavMenu();
-                    navigate(item.path);
-                }}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {item.name}
-              </Button>
-            ))}
-          </Box>
-                {auth && (
-                    <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                      </IconButton>
-                    </Tooltip>
-                    <Menu
-                      sx={{ mt: '45px' }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
+    <nav className="navbar">
+                <div className="nav-center">
+                    <div className="nav-header">
+                        <Link to="/">
+                            <img src={logo} alt="logo" />
+                        </Link>
+                        <button
+                            type="button"
+                            className="nav-btn"
+                            onClick={toggle}
+                        >
+                            <FaAlignRight className="nav-icon" />
+                        </button>
+                    </div>
+                    <ul 
+                        className={isOpen ? "nav-links show-nav" : "nav-links"}
                     >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={() => {
-                            handleCloseUserMenu();
-                            handleSettingClick(setting);
-                        }}>
-                          <Typography textAlign="center">{setting}</Typography>
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </Box>
+                      {
+                        MenuItems.map((item, index) => {
+                          return <li key={index}>
+                            <Link to={item.path} onClick={
+                              () => {
+                                toggle();
+                              }
+                            }>{item.name}</Link>
+                          </li>
+                        })
+                      }
+                       
+                    </ul>
+                </div>
+            </nav>
+    )
+}
 
-                )}
-          
-        </Toolbar>
-      </Container>
-    </AppBar>
-  );
-};
 export default Navbar;

@@ -12,7 +12,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import defaultImage from '../../images/login.jpg';
+import defaultImage from '../../assets/login.jpg';
 import { loginUser } from '../../redux/authSlice';
 import { useDispatch } from 'react-redux';
 const theme = createTheme();

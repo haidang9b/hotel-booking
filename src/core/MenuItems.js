@@ -1,31 +1,19 @@
 export const MenuItems = [
     {
-        name: "Home",
-        path: "/",
+        name: 'Home',
+        path: '/',
     },
     {
-        name: "Rooms",
-        path: "/rooms",
+        name: 'Rooms',
+        path: '/rooms',
     },
     {
-        name: "Services",
-        path: "/services",
-    },
-
-    {
-        name: "Contact Us",
-        path: "/contact-us",
+        name: 'Contact',
+        path: '/contact',
     },
     {
-        name: "About",
-        path: "/about",
-    },
-    {
-        name: "Login",
-        path: "/login",
-    },
-    {
-        name: "Room Management",
-        path: "/room-management",
+        name: 'About',
+        path: '/about',
     }
+
 ]

@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
-import { Button } from 'primereact/button';
-import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner";
 import Hero from "../components/Hero";
-const Error = () => {
-    const navigate = useNavigate();
-    useEffect(() => {
-        document.title = "Page not found";
-    }, []);
+import { Link } from "react-router-dom";
 
+const Error = () => {
+    useEffect(() => {
+        document.title = "Error";
+    }, [])
     return (
-        <div className="container">
-            
-            
-        </div>
-        
+       <Hero>
+           <Banner title="404" subtitle="page not found">
+               <Link to="/" className="btn-primary">
+                   return home
+               </Link>
+           </Banner>
+       </Hero>
     )
 }
+
 
 export default Error;

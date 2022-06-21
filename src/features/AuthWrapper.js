@@ -10,7 +10,7 @@ export default function AuthWrapper({ children }) {
     useEffect(() => {
 		dispatch(getUser());
 		// eslint-disable-next-line
-	}, []);
+	  }, []);
     if( isLoading ) {
         return <Loading />;
     }

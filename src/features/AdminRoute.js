@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { userSelector, authSelector } from "../redux/selector";
+import { userSelector } from "../redux/selector";
 import { ADMIN_ROLE } from "../core/constants";
 const AdminRoute = ({ children }) => {
     const user = useSelector(userSelector);
